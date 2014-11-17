@@ -24,6 +24,16 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet-mapping>
 	
 	
+	<servlet>
+		<servlet-name>Task4</servlet-name>
+		<servlet-class>il.ac.mta.Task4</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>Task4</servlet-name>
+		<url-pattern>/task4</url-pattern>
+	</servlet-mapping>
+	
+	
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	

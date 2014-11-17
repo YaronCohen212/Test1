@@ -6,13 +6,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@SuppressWarnings("serial")
 public class Task3 extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws IOException {
-				//sub task 1
+				resp.setContentType("text/html");//sub task 1
+				
 				int rad=50;
 				float area=rad*(float)Math.pow(Math.PI,2);
-				resp.getWriter().println("<h1>Area of circle with radius " + rad + "cm is: " + area +" square-cm.</h1><br><br>");
+				resp.getWriter().println("<h1>Area of circle with radius " + rad + "cm is: " + area +" square-cm.</h1>");
 				//sub task 2
 				int angleDeg=30,hypotenuseLen=50;
 				float oppositeLen=(float) (Math.sin(Math.toRadians(angleDeg))*hypotenuseLen);
