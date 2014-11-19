@@ -25,12 +25,12 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	
 	
 	<servlet>
-		<servlet-name>Task4</servlet-name>
-		<servlet-class>il.ac.mta.Task4</servlet-class>
+		<servlet-name>StockDetailsServlet</servlet-name>
+		<servlet-class>il.ac.mta.StockDetailsServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>Task4</servlet-name>
-		<url-pattern>/task4</url-pattern>
+		<servlet-name>StockDetailsServlet</servlet-name>
+		<url-pattern>/stockdetails</url-pattern>
 	</servlet-mapping>
 	
 	
