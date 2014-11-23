@@ -21,6 +21,6 @@ public class Task3 extends HttpServlet{
 				resp.getWriter().println("<h1>Length of opposite angle B is " + angleDeg + "&deg and hypotenuse length is "+ oppositeLen +" cm.</h1>");
 				//sub task 3
 				int base=20,power=13;
-				resp.getWriter().println("<h1>" + base + "<sup>" + power + "</sup>=" + (int)Math.pow(base,power) +"</h1>");
+				resp.getWriter().println("<h1>" + base + "<sup>" + power + "</sup>=" + (long)Math.pow(base,power) +"</h1>");
 	}
 }
