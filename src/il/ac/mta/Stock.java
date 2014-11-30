@@ -29,27 +29,35 @@ public class Stock {
 		bid=inputBid;
 		date=d;
 	}
+	
 	public void setStockSymbol(String inputSymbol ){
 		symbol=inputSymbol;
 	}
+	
 	public void setStockAsk(float inputAsk ){
 		ask=inputAsk;
 	}
+	
 	public void setStockBid(float inputBid ){
 		bid=inputBid;
 	}
+	
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	
 	public Date getDate() {
 		return date;
 	}
+	
 	public String getStockSymbol(){
 		return symbol;
 	}
+	
 	public float getStockAsk(){
 		return ask;
 	}
+	
 	public float getStockBid(){
 		return bid;
 	}
@@ -58,5 +66,4 @@ public class Stock {
 		return ("<b>Stock symbol</b>: " + symbol + ", <b>ask</b>: " + ask + ", <b>bid</b>:" + bid + ", <b>date</b>: " +
 		date+ "<br>");	
 	}
-
 }
