@@ -1,4 +1,4 @@
-package il.ac.mta;
+package il.ac.mta.model;
 
 import java.util.Date;
 
@@ -17,17 +17,17 @@ public class Stock {
 	 * 
 	 */
 	public Stock (){
-		symbol="";
-		ask=0;
-		bid=0;
-		date = new Date();
+		this.symbol="";
+		this.ask=0;
+		this.bid=0;
+		this.date = new Date();
 	}
 	
 	public Stock (String inputSymbol, float inputAsk, float inputBid, Date d){
-		symbol=inputSymbol;
-		ask=inputAsk;
-		bid=inputBid;
-		date=d;
+		this.symbol=inputSymbol;
+		this.ask=inputAsk;
+		this.bid=inputBid;
+		this.date=d;
 	}
 	
 	public void setStockSymbol(String inputSymbol ){
@@ -62,8 +62,15 @@ public class Stock {
 		return bid;
 	}
 	
+	public void setStock(String inputSymbol, float inputAsk, float inputBid, Date d){
+		this.symbol=inputSymbol;
+		this.ask=inputAsk;
+		this.bid=inputBid;
+		this.date=d;
+	}
+	
 	public String getHtmlDescription(){
 		return ("<b>Stock symbol</b>: " + symbol + ", <b>ask</b>: " + ask + ", <b>bid</b>:" + bid + ", <b>date</b>: " +
-		date+ "<br>");	
+		date);	
 	}
 }

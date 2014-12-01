@@ -1,7 +1,10 @@
-package il.ac.mta;
+package il.ac.mta.servlet;
+
+import il.ac.mta.model.Stock;
 
 import java.io.IOException;
 import java.util.Calendar;
+
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,8 +28,8 @@ public class StockDetailsServlet extends HttpServlet{
 			Stock s2= new Stock("AAL" , (float)5.5 , (float)5.78 , c2.getTime());
 			Stock s3= new Stock("CAAS" , (float)31.5 , (float)31.2 , c3.getTime());
 			
-			resp.getWriter().println(s1.getHtmlDescription());
-			resp.getWriter().println(s2.getHtmlDescription());
-			resp.getWriter().println(s3.getHtmlDescription());
+			resp.getWriter().println(s1.getHtmlDescription()+"<br>");
+			resp.getWriter().println(s2.getHtmlDescription()+"<br>");
+			resp.getWriter().println(s3.getHtmlDescription()+"<br>");
 	}
 }
