@@ -2,6 +2,15 @@ package il.ac.mta.model;
 
 import java.util.Date;
 
+/**
+ * This class describes stock portfolio
+ * members : title - the name of the stock portfolio.
+ * 			 stocks - array of stocks.
+ * 			 stocks status - array of recommendation for each stock will do only: buy, sell or do nothing
+ *  		 portfolioSize - the logic size of stocks.
+ * @author Yaron_Cohen
+ * @since JDK 7
+ */
 public class Portfolio {
 	//finals
 	public final static int MAX_PORTFOLIO_SIZE=5;
@@ -56,6 +65,12 @@ public class Portfolio {
 		this.portfolioSize=portfolioSize;
 	}
 	
+	/**
+	 * return the HTML code for portfolio 
+	 * <portfolio name>
+	 * for each stock
+	 * Stock symbol: <symbol>, ask: <ask>, bid: <bid>, date: <UTC date>
+	 */
 	public String getHtmlString(){
 		String res="<h1>" + this.title + "</h1>";
 		for(int i=0;i<this.portfolioSize;i++){

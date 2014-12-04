@@ -1,10 +1,13 @@
 package il.ac.mta.model;
 
 import java.util.Date;
-
 /**
+ * This class describes stock
+ * members : symbol - single value can seen as the "name".
+ * 			 ask - is the price a seller states she or he will accept for a good.
+ *  		 bid - is the highest price that a buyer is willing to pay for a good.
  * @author Yaron_Cohen
- *
+ * @since JDK 7
  */
 public class Stock {
 	private String symbol;
@@ -12,10 +15,6 @@ public class Stock {
 	private float bid;
 	private Date date; 
 	
-	
-	/**
-	 * 
-	 */
 	public Stock (){
 		this.symbol="";
 		this.ask=0;
@@ -69,8 +68,12 @@ public class Stock {
 		this.date=d;
 	}
 	
+	/**
+	 * return the HTML code for stock 
+	 * Stock symbol: <symbol>, ask: <ask>, bid: <bid>, date: <UTC date>
+	 */
 	public String getHtmlDescription(){
-		return ("<b>Stock symbol</b>: " + symbol + ", <b>ask</b>: " + ask + ", <b>bid</b>:" + bid + ", <b>date</b>: " +
+		return ("<b>Stock symbol</b>: " + symbol + ", <b>ask</b>: " + ask + ", <b>bid</b>: " + bid + ", <b>date</b>: " +
 		date);	
 	}
 }
