@@ -15,6 +15,7 @@ public class Stock {
 	private float bid;
 	private Date date; 
 	
+// C'tor
 	public Stock (){
 		this.symbol="";
 		this.ask=0;
@@ -27,6 +28,12 @@ public class Stock {
 		this.ask=inputAsk;
 		this.bid=inputBid;
 		this.date=d;
+	}
+
+// Copy C'tor	
+	public Stock (Stock s){
+		this(s.symbol , s.ask , s.bid , s.date);
+		this.date = new Date(s.date.getTime());
 	}
 	
 	public void setStockSymbol(String inputSymbol ){

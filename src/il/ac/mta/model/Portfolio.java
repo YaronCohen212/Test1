@@ -19,8 +19,8 @@ public class Portfolio {
 	private Stock[] stocks;
 	private StockStatus[] stocksStatus;
 	private int portfolioSize;
-	//c'tors
 	
+	//c'tors
 	public Portfolio(){
 		this.title = "";
 		this.stocks = new Stock[MAX_PORTFOLIO_SIZE];
@@ -30,6 +30,17 @@ public class Portfolio {
 			this.stocksStatus[i]=new StockStatus();
 		}
 		this.portfolioSize = 0;
+	}
+	//Copy c'tor
+	public Portfolio(Portfolio p){
+		this.title=p.title;
+		this.stocks = new Stock[MAX_PORTFOLIO_SIZE];
+		this.stocksStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
+		for(int i=0;i<MAX_PORTFOLIO_SIZE;i++){
+			this.stocks[i]=new Stock(p.stocks[i]);
+			this.stocksStatus[i]=new StockStatus(p.stocksStatus[i]);
+		}
+		this.portfolioSize = p.portfolioSize;
 	}
 	
 	//Setters and getters
@@ -49,10 +60,6 @@ public class Portfolio {
 		this.stocksStatus = stocksStatus;
 	}
 
-	public int getPortfolioSize() {
-		return portfolioSize;
-	}
-
 	public void setStocks(Stock[] stocks) {
 		this.stocks = stocks;
 	}
@@ -60,14 +67,17 @@ public class Portfolio {
 	public Stock[] getStocks(){
 		return this.stocks;
 	}
-	
-	public void setPortfolioSize(int portfolioSize){
-		this.portfolioSize=portfolioSize;
+
+	public int getPortfolioSize() {
+		return portfolioSize;
 	}
-	
+	public void setPortfolioSize(int portfolioSize) {
+		this.portfolioSize = portfolioSize;
+	}
+
 	/**
 	 * return the HTML code for portfolio 
-	 * <portfolio name>
+	 * <portfolio name> (as header1)
 	 * for each stock
 	 * Stock symbol: <symbol>, ask: <ask>, bid: <bid>, date: <UTC date>
 	 */
@@ -110,6 +120,16 @@ public class Portfolio {
 			this.date = new Date();
 			this.recommendation = recommendation;
 			this.stockQuantity = stockQuantity;
+		}
+		
+		//Copy c'tor
+		public StockStatus (StockStatus s){
+			this.symbol = s.symbol;
+			this.currentAsk = s.currentAsk;
+			this.currentBid = s.currentBid;
+			this.date = new Date(s.date.getTime());
+			this.recommendation = s.recommendation;
+			this.stockQuantity = s.stockQuantity;
 		}
 		//Setters and getters
 		public String getSymbol() {
