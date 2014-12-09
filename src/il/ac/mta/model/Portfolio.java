@@ -114,7 +114,6 @@ public class Portfolio {
 			this.currentAsk = 0;
 			this.currentBid = 0;
 			this.date = new Date();
-			this.Recommendation = DO_NOTHING;
 			this.stockQuantity = 0;
 		}
 		
@@ -123,7 +122,6 @@ public class Portfolio {
 			this.currentAsk = currentAsk;
 			this.currentBid = currentBid;
 			this.date = new Date();
-			this.recommendation = recommendation;
 			this.stockQuantity = stockQuantity;
 		}
 		
@@ -133,7 +131,6 @@ public class Portfolio {
 			this.currentAsk = s.currentAsk;
 			this.currentBid = s.currentBid;
 			this.date = new Date(s.date.getTime());
-			this.recommendation = s.recommendation;
 			this.stockQuantity = s.stockQuantity;
 		}
 		//Setters and getters
@@ -167,14 +164,6 @@ public class Portfolio {
 
 		public void setDate(Date date) {
 			this.date = date;
-		}
-
-		public int getRecommendation() {
-			return recommendation;
-		}
-
-		public void setRecommendation(int recommendation) {
-			this.recommendation = recommendation;
 		}
 
 		public int getStockQuantity() {
