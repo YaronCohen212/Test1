@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
+/**
+ * Displays the information about stock portfolio in HTML
+ *  
+ * @author Yaron_Cohen
+ * @since JDK 7
+ */
 @SuppressWarnings("serial")
 public class PortfolioServlet  extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp)

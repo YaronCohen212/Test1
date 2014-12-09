@@ -31,6 +31,7 @@ public class Portfolio {
 		}
 		this.portfolioSize = 0;
 	}
+	
 	//Copy c'tor
 	public Portfolio(Portfolio p){
 		this.title=p.title;
@@ -78,20 +79,24 @@ public class Portfolio {
 	/**
 	 * return the HTML code for portfolio 
 	 * <portfolio name> (as header1)
-	 * for each stock
+	 * and list of:
 	 * Stock symbol: <symbol>, ask: <ask>, bid: <bid>, date: <UTC date>
 	 */
 	public String getHtmlString(){
 		String res="<h1>" + this.title + "</h1>";
 		for(int i=0;i<this.portfolioSize;i++){
-			//res.concat(this.stocks[i].getHtmlDescription());
-			res+=this.stocks[i].getHtmlDescription()+"<br>";//-->is it ok to write br tag?
+			res+=this.stocks[i].getHtmlDescription()+"<br>";
 		}
 		return res;
 	}
-	
-	public class StockStatus{
+	/**
+	 * Inner class. more information in future
+	 * @author Yaron_Cohen
+	 * @since JDK 7
+	 */
+	public class StockStatus{//static if enum
 		//finals
+		//private enum Recommendation  {DO_NOTHING , SELL , BUY};
 		public final static int DO_NOTHING=0;
 		public final static int BUY=1;
 		public final static int SELL=2;
@@ -100,7 +105,7 @@ public class Portfolio {
 		private float currentAsk;
 		private float currentBid;
 		private Date date; 
-		private int recommendation;
+		//private enum recommendation {DO_NOTHING , SELL , BUY};
 		private int stockQuantity;
 		
 		//c'tors
@@ -109,7 +114,7 @@ public class Portfolio {
 			this.currentAsk = 0;
 			this.currentBid = 0;
 			this.date = new Date();
-			this.recommendation = StockStatus.DO_NOTHING;
+			this.Recommendation = DO_NOTHING;
 			this.stockQuantity = 0;
 		}
 		
