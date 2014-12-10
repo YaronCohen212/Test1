@@ -34,7 +34,7 @@ public class PortfolioServlet  extends HttpServlet {
 			resp.getWriter().println(portfolioCopy.getHtmlString());
 			
 			//remove last stock
-			portfolioCopy.removeStock(0);
+			portfolioCopy.removeStock(stocks[0]);
 			resp.getWriter().println(portfolio.getHtmlString());		
 			resp.getWriter().println(portfolioCopy.getHtmlString());
 			

@@ -119,6 +119,18 @@ public class Portfolio {
 		}
 	}	
 	
+	/**
+	 * remove the selected stock, stock must bee inside stocks[] otherwise it do nothing.
+	 */
+	public void removeStock(Stock stock){
+		for (int i=0 ; i<MAX_PORTFOLIO_SIZE ; i++){
+			if (stock==this.stocks[i]){
+				this.removeStock(i);
+				break;
+			}
+		}
+	}
+	
 	//put all stocks in the start of the array stocks keep the same order
 	private void fixStocks(){
 		int j=0;
@@ -130,6 +142,7 @@ public class Portfolio {
 		}
 		this.stocks=res;
 	}
+	
 	/**
 	 * Inner class. more information in future
 	 * @author Yaron_Cohen
@@ -174,7 +187,7 @@ public class Portfolio {
 		public String getSymbol() {
 			return symbol;
 		}
-
+		
 		public void setSymbol(String symbol) {
 			this.symbol = symbol;
 		}
