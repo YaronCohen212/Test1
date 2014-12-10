@@ -25,10 +25,6 @@ public class Portfolio {
 		this.title = "";
 		this.stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		this.stocksStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
-		for(int i=0;i<MAX_PORTFOLIO_SIZE;i++){
-			this.stocks[i]=new Stock();
-			this.stocksStatus[i]=new StockStatus();
-		}
 		this.portfolioSize = 0;
 	}
 	
@@ -38,9 +34,11 @@ public class Portfolio {
 		this.stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		this.stocksStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
 		for(int i=0;i<MAX_PORTFOLIO_SIZE;i++){
-			this.stocks[i]=new Stock(p.stocks[i]);
-			this.stocksStatus[i]=new StockStatus(p.stocksStatus[i]);
-		}
+			if (p.stocks[i] != null){
+				this.stocks[i]=new Stock(p.stocks[i]);
+				this.stocksStatus[i]=new StockStatus(p.stocksStatus[i]);	
+			}
+		}	
 		this.portfolioSize = p.portfolioSize;
 	}
 	
@@ -72,10 +70,7 @@ public class Portfolio {
 	public int getPortfolioSize() {
 		return portfolioSize;
 	}
-	public void setPortfolioSize(int portfolioSize) {
-		this.portfolioSize = portfolioSize;
-	}
-
+	
 	/**
 	 * return the HTML code for portfolio 
 	 * <portfolio name> (as header1)
@@ -84,11 +79,38 @@ public class Portfolio {
 	 */
 	public String getHtmlString(){
 		String res="<h1>" + this.title + "</h1>";
-		for(int i=0;i<this.portfolioSize;i++){
-			res+=this.stocks[i].getHtmlDescription()+"<br>";
+		for(int i=0;i<Portfolio.MAX_PORTFOLIO_SIZE;i++){
+			if (this.stocks[i] == null){
+				continue;}
+			else{
+			res+=this.stocks[i].getHtmlDescription()+"<br>";}
 		}
 		return res;
 	}
+	/**
+	 * add data to the first non-null stocks[].  
+	 */
+	public void addStock (String symbol, float ask, float bid, Date date){
+		for (int i=0 ; i<=this.portfolioSize ; i++)
+			if (this.stocks[i] == null){
+				this.stocks[i] = new Stock(symbol , ask , bid, date);
+				this.stocksStatus[i]=new StockStatus();
+				this.portfolioSize++;
+				break;
+			}
+	}
+	/**
+	 * remove existing stock in stocks[]
+	 * @param i is the index of stocks[], between 0 to MAX_PORTFOLIO_SIZE-1;
+	 */
+	public void removeStock (int i){
+		if (i>=0 && this.stocks[i] != null && i<MAX_PORTFOLIO_SIZE){
+			this.stocks[i] = null;
+			this.stocksStatus[i] = null;
+			this.portfolioSize--;
+		}
+		
+	}	
 	/**
 	 * Inner class. more information in future
 	 * @author Yaron_Cohen

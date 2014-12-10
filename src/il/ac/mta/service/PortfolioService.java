@@ -12,9 +12,9 @@ import java.util.Calendar;
 public class PortfolioService {
 	public Portfolio getProtfolio(){
 		
-		Portfolio myPortfolio = new Portfolio();;
-		Stock[] myStock=myPortfolio.getStocks();
+		Portfolio myPortfolio = new Portfolio();
 		myPortfolio.setTitle("High risk stocks");
+		
 		Calendar c1 = Calendar.getInstance();
 		Calendar c2 = Calendar.getInstance();
 		Calendar c3 = Calendar.getInstance();
@@ -23,10 +23,10 @@ public class PortfolioService {
 		c2.set(2014, 10, 15, 0, 0, 0);
 		c3.set(2014, 10, 15, 0, 0, 0);
 		
-		myStock[0].setStock("PIH", (float)12.4, (float)13.1, c1.getTime());
-		myStock[1].setStock("AAL", (float)5.5, (float)5.78, c2.getTime());
-		myStock[2].setStock("CAAS", (float)31.5, (float)31.2, c3.getTime());
-		myPortfolio.setPortfolioSize(3);
+		myPortfolio.addStock("PIH", (float)12.4, (float)13.1, c1.getTime());
+		myPortfolio.addStock("AAL", (float)5.5, (float)5.78, c2.getTime());
+		myPortfolio.addStock("CAAS", (float)31.5, (float)31.2, c3.getTime());
+		
 		
 		return myPortfolio;
 	}
