@@ -17,10 +17,7 @@ public class Stock {
 	
 // C'tor
 	public Stock (){
-		this.symbol="";
-		this.ask=0;
-		this.bid=0;
-		this.date = new Date();
+		this("",0,0,new Date());
 	}
 	
 	public Stock (String inputSymbol, float inputAsk, float inputBid, Date d){

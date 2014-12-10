@@ -3,11 +3,12 @@ package il.ac.mta.model;
 import java.util.Date;
 
 /**
- * This class describes stock portfolio
- * members : title - the name of the stock portfolio.
- * 			 stocks - array of stocks.
- * 			 stocks status - array of recommendation for each stock will do only: buy, sell or do nothing
- *  		 portfolioSize - the logic size of stocks.
+ * This class describes stock portfolio.<br>
+ * title - the name of the stock portfolio.<br>
+ * stocks - array of stocks.<br>
+ * stocks status - array of recommendation for each stock will do only: buy, sell or do nothing.<br>
+ * portfolioSize - the logic size of stocks.<br>
+ * <br>MAX_PORTFOLIO_SIZE - the physical size of stocks.
  * @author Yaron_Cohen
  * @since JDK 7
  */
@@ -73,9 +74,10 @@ public class Portfolio {
 	
 	/**
 	 * return the HTML code for portfolio 
-	 * <portfolio name> (as header1)
-	 * and list of:
-	 * Stock symbol: <symbol>, ask: <ask>, bid: <bid>, date: <UTC date>
+	 * @example
+	 * <h1>Extreme risk stocks</h1>
+	 * <b>Stock symbol:</b> PIH, <b>ask:</b> 12.4, <b>bid:</b> 13.1, <b>date:</b> Sat Nov 15 22:12:04 IST 2014<br>
+	 * <b>Stock symbol:</b> AAPLE, <b>ask:</b> 54.2, <b>bid:</b> 6.4, <b>date:</b> Sun Dec 2 14:22:56 IST 2013<br>.....
 	 */
 	public String getHtmlString(){
 		String res="<h1>" + this.title + "</h1>";
@@ -149,11 +151,7 @@ public class Portfolio {
 		
 		//c'tors
 		public StockStatus(){
-			this.symbol="";
-			this.currentAsk = 0;
-			this.currentBid = 0;
-			this.date = new Date();
-			this.stockQuantity = 0;
+			this("", 0, 0, new Date(), 0,0);
 		}
 		
 		public StockStatus(String symbol, float currentAsk, float currentBid, Date date, int recommendation, int stockQuantity){
@@ -165,12 +163,12 @@ public class Portfolio {
 		}
 		
 		//Copy c'tor
-		public StockStatus (StockStatus s){
-			this.symbol = s.symbol;
-			this.currentAsk = s.currentAsk;
-			this.currentBid = s.currentBid;
-			this.date = new Date(s.date.getTime());
-			this.stockQuantity = s.stockQuantity;
+		public StockStatus (StockStatus stockStatus){
+			this.symbol = stockStatus.symbol;
+			this.currentAsk = stockStatus.currentAsk;
+			this.currentBid = stockStatus.currentBid;
+			this.date = new Date(stockStatus.date.getTime());
+			this.stockQuantity = stockStatus.stockQuantity;
 		}
 		//Setters and getters
 		public String getSymbol() {
