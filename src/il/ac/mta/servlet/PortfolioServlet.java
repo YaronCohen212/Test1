@@ -26,7 +26,7 @@ public class PortfolioServlet  extends HttpServlet {
 			PortfolioService portfolioService = new PortfolioService();
 			Portfolio portfolio = portfolioService.getProtfolio();
 			Portfolio portfolioCopy= new Portfolio(portfolio);
-			Stock[] stocks;
+			Stock[] stocks=portfolioCopy.getStocks();
 					
 			//make copy of portfolio and change title
 			portfolioCopy.setTitle("Low risk stocks");
@@ -39,7 +39,6 @@ public class PortfolioServlet  extends HttpServlet {
 			resp.getWriter().println(portfolioCopy.getHtmlString());
 			
 			//change last stock bid value
-			stocks=portfolioCopy.getStocks();
 			stocks[2].setStockBid(55.55f);
 			resp.getWriter().println(portfolio.getHtmlString());		
 			resp.getWriter().println(portfolioCopy.getHtmlString());

@@ -1,9 +1,8 @@
 package il.ac.mta.service;
 
 import il.ac.mta.model.Portfolio;
-import il.ac.mta.model.Stock;
-
 import java.util.Calendar;
+
 /**
  * More information will be announced later
  * @author Yaron_Cohen

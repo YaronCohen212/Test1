@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Portfolio {
 	//finals
-	public final static int MAX_PORTFOLIO_SIZE=5;
+	public final static int MAX_PORTFOLIO_SIZE=5;//= 2 or more
 	//members
 	private String title;
 	private Stock[] stocks;
@@ -79,7 +79,7 @@ public class Portfolio {
 	 */
 	public String getHtmlString(){
 		String res="<h1>" + this.title + "</h1>";
-		for(int i=0;i<Portfolio.MAX_PORTFOLIO_SIZE;i++){
+		for(int i=0;i<MAX_PORTFOLIO_SIZE;i++){
 			if (this.stocks[i] == null){
 				continue;}
 			else{
@@ -88,16 +88,21 @@ public class Portfolio {
 		return res;
 	}
 	/**
-	 * add data to the first non-null stocks[].  
+	 * add data to the end of stocks[] if there is a place if not do nothing.  
+	 */
+	public void addStock (Stock stock){
+		if (this.portfolioSize < MAX_PORTFOLIO_SIZE){
+			this.stocks[this.portfolioSize] = new Stock(stock);
+			this.stocksStatus[this.portfolioSize++]=new StockStatus();
+		}
+	}
+	
+	/**
+	 * add stock to the end of stocks[] if there is a place if not do nothing.  
 	 */
 	public void addStock (String symbol, float ask, float bid, Date date){
-		for (int i=0 ; i<=this.portfolioSize ; i++)
-			if (this.stocks[i] == null){
-				this.stocks[i] = new Stock(symbol , ask , bid, date);
-				this.stocksStatus[i]=new StockStatus();
-				this.portfolioSize++;
-				break;
-			}
+		Stock stock = new Stock(symbol , ask , bid, date);
+		this.addStock(stock);
 	}
 	/**
 	 * remove existing stock in stocks[]
@@ -108,9 +113,21 @@ public class Portfolio {
 			this.stocks[i] = null;
 			this.stocksStatus[i] = null;
 			this.portfolioSize--;
+			this.fixStocks();
 		}
-		
 	}	
+	
+	//put all stocks in the start of the array stocks keep the same order
+	private void fixStocks(){
+		int j=0;
+		Stock[] res=new Stock[MAX_PORTFOLIO_SIZE];
+		for (int i=0 ; i<MAX_PORTFOLIO_SIZE ; i++){
+			if (this.stocks[i] != null){
+				res[j++]=stocks[i];				
+			}
+		}
+		this.stocks=res;
+	}
 	/**
 	 * Inner class. more information in future
 	 * @author Yaron_Cohen

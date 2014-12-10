@@ -75,6 +75,12 @@ public class Stock {
 		this.date=d;
 	}
 	
+	public boolean equal (Stock stock){
+		if (this.symbol.equals(stock.symbol) && this.date.equals(stock.date))//-->add ask==stock ask and bid==stock.bid
+			{return true;}
+		else
+			{return false;}
+	}
 	/**
 	 * return the HTML code for stock 
 	 * Stock symbol: <symbol>, ask: <ask>, bid: <bid>, date: <UTC date>
