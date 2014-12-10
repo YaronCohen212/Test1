@@ -80,7 +80,8 @@ public class Stock {
 	}
 	/**
 	 * return the HTML code for stock 
-	 * Stock symbol: <symbol>, ask: <ask>, bid: <bid>, date: <UTC date>
+	 *  @example
+	 * <b>Stock symbol:</b> PIH, <b>ask:</b> 12.4, <b>bid:</b> 13.1, <b>date:</b> Sat Nov 15 22:12:04 IST 2014<br>
 	 */
 	public String getHtmlDescription(){
 		return ("<b>Stock symbol</b>: " + symbol + ", <b>ask</b>: " + ask + ", <b>bid</b>: " + bid + ", <b>date</b>: " +
