@@ -13,7 +13,7 @@ public class Stock {
 	private String symbol;
 	private float ask;
 	private float bid;
-	private Date date; 
+	private Date date;
 	
 // C'tor
 	public Stock (){
@@ -21,18 +21,19 @@ public class Stock {
 	}
 	
 	public Stock (String inputSymbol, float inputAsk, float inputBid, Date d){
-		this.symbol=inputSymbol;
-		this.ask=inputAsk;
-		this.bid=inputBid;
-		this.date=d;
+		this.symbol = inputSymbol;
+		this.ask = inputAsk;
+		this.bid = inputBid;
+		this.date = new Date(d.getTime());
 	}
 
 // Copy C'tor	
 	public Stock (Stock s){
-		this(s.symbol , s.ask , s.bid , s.date);
+		this(s.symbol , s.ask , s.bid , s.date );
 		this.date = new Date(s.date.getTime());
 	}
 	
+
 	public void setStockSymbol(String inputSymbol ){
 		symbol=inputSymbol;
 	}
@@ -72,14 +73,14 @@ public class Stock {
 		this.date=d;
 	}
 	
-	public boolean equal (Stock stock){
-		if (this.symbol.equals(stock.symbol) && this.date.equals(stock.date))//-->add ask==stock ask and bid==stock.bid
+	public boolean equal (String symbol){
+		if (this.symbol.equals(symbol))
 			{return true;}
 		else
 			{return false;}
 	}
 	/**
-	 * return the HTML code for stock 
+	 * return an HTML code string of stock. 
 	 *  @example
 	 * <b>Stock symbol:</b> PIH, <b>ask:</b> 12.4, <b>bid:</b> 13.1, <b>date:</b> Sat Nov 15 22:12:04 IST 2014<br>
 	 */
