@@ -100,7 +100,7 @@ public class Portfolio {
 	 */
 	private boolean addStock (Stock stock, StockStatus stockStatus){
 		int index = isStockExist(stock.getStockSymbol());
-		if (index == -1){
+		if (index >= 0){
 			System.out.println("can't add new stock, portfolio alredy have \"" + stock.getStockSymbol() + "\" stocks");
 			return false;
 		}
@@ -280,13 +280,13 @@ public class Portfolio {
 		Calendar c1 = Calendar.getInstance();
 		c1.set(2014, 12, 15);
 		if (symbol.equals("PIH")){
-			res.setStockStatus(symbol, 10, 8.5f, c1.getTime(), ALGO_RECOMMENDATION.DO_NOTHING, 0);
+			res.setStockStatus("PIH", 10, 8.5f, c1.getTime(), ALGO_RECOMMENDATION.DO_NOTHING, 0);
 		}
 		else if (symbol.equals("AAL")){
-			res.setStockStatus(symbol, 30, 25.5f, c1.getTime(), ALGO_RECOMMENDATION.DO_NOTHING, 0);
+			res.setStockStatus("AAL", 30, 25.5f, c1.getTime(), ALGO_RECOMMENDATION.DO_NOTHING, 0);
 		}
 		else if (symbol.equals("CAAS")){
-			res.setStockStatus(symbol, 20, 15.5f, c1.getTime(), ALGO_RECOMMENDATION.DO_NOTHING, 0);
+			res.setStockStatus("CAAS", 20, 15.5f, c1.getTime(), ALGO_RECOMMENDATION.DO_NOTHING, 0);
 		}
 		else{
 			return null;

@@ -1,5 +1,6 @@
 package il.ac.mta.model;
 
+import java.util.Calendar;
 import java.util.Date;
 /**
  * This class describes stock
@@ -21,10 +22,12 @@ public class Stock {
 	}
 	
 	public Stock (String inputSymbol, float inputAsk, float inputBid, Date d){
+		Calendar c1 = Calendar.getInstance();
 		this.symbol = inputSymbol;
 		this.ask = inputAsk;
 		this.bid = inputBid;
-		this.date = new Date(d.getTime());
+		c1.setTime(d);
+		this.date = c1.getTime();
 	}
 
 // Copy C'tor	
