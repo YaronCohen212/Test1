@@ -1,6 +1,6 @@
 package il.ac.mta.model;
 
-import java.util.Calendar;
+import il.ac.mta.service.PortfolioService;
 import java.util.Date;
 
 /**
@@ -146,14 +146,16 @@ public class Portfolio {
 	 * @return action is success or fail
 	 */
 	public boolean buyStock(String symbol, int quantity){		
-		StockStatus newStockStatus = serverLike(symbol);
+		Stock tmpStockStatus = PortfolioService.serverLike(symbol);
+		StockStatus newStockStatus; 
 		Stock newStock;
 		int i = isStockExist(symbol);
 		
-		if (newStockStatus == null){ //symbol not found
+		if (tmpStockStatus == null){ //symbol not found
 			return false;
 		}
 		
+		newStockStatus = new StockStatus(tmpStockStatus);
 		newStock = new Stock(symbol , newStockStatus.getCurrentAsk() , newStockStatus.getCurrentBid() , newStockStatus.getDate());
 		if (quantity == -1){
 			quantity = (int)(balance / newStockStatus.getCurrentAsk());
@@ -270,29 +272,7 @@ public class Portfolio {
 		return getBalance()+getStocksValue();
 	}
 	
-	/**
-	 * it simulate "real time" server for bring stocks information by symbol
-	 * @param symbol - key
-	 * @return stock status
-	 */
-	private StockStatus serverLike(String symbol){
-		StockStatus res = new StockStatus();
-		Calendar c1 = Calendar.getInstance();
-		c1.set(2014, 12, 15);
-		if (symbol.equals("PIH")){
-			res.setStockStatus("PIH", 10, 8.5f, c1.getTime(), ALGO_RECOMMENDATION.DO_NOTHING, 0);
-		}
-		else if (symbol.equals("AAL")){
-			res.setStockStatus("AAL", 30, 25.5f, c1.getTime(), ALGO_RECOMMENDATION.DO_NOTHING, 0);
-		}
-		else if (symbol.equals("CAAS")){
-			res.setStockStatus("CAAS", 20, 15.5f, c1.getTime(), ALGO_RECOMMENDATION.DO_NOTHING, 0);
-		}
-		else{
-			return null;
-		}
-		return res;
-	}
+	
 	/**
 	 * Inner class. more information in future
 	 * @author Yaron_Cohen
@@ -319,6 +299,15 @@ public class Portfolio {
 			this.date = new Date(date.getTime());
 			this.recommendation=recommendation;
 			this.stockQuantity = stockQuantity;
+		}
+		
+		public StockStatus(Stock stock){
+			this.symbol = stock.getStockSymbol();
+			this.currentAsk = stock.getStockAsk();
+			this.currentBid = stock.getStockBid();
+			this.date = new Date(stock.getDate().getTime());
+			this.recommendation = ALGO_RECOMMENDATION.DO_NOTHING;
+			this.stockQuantity = 0;
 		}
 		
 		public StockStatus(String symbol){

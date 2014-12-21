@@ -1,6 +1,10 @@
 package il.ac.mta.service;
 
+import java.util.Calendar;
+import java.util.Date;
+
 import il.ac.mta.model.Portfolio;
+import il.ac.mta.model.Stock;
 
 
 /**
@@ -22,5 +26,31 @@ public class PortfolioService {
 		myPortfolio.removeStock("CAAS");
 		
 		return myPortfolio;
+	}
+	
+	/**
+	 * it simulate "real time" server for bring stocks information by symbol
+	 * @param symbol - key
+	 * @return stock status
+	 */
+	public static Stock serverLike(String symbol){
+		Stock res = new Stock();
+		Calendar c1 = Calendar.getInstance();
+		c1.set(2014, 11, 15, 0, 0, 0);
+		Date date = c1.getTime();
+	
+		if (symbol.equals("PIH")){
+			res.setStock("PIH", 10, 8.5f, date);
+		}
+		else if (symbol.equals("AAL")){
+			res.setStock("AAL", 30, 25.5f, date);
+		}
+		else if (symbol.equals("CAAS")){
+			res.setStock("CAAS", 20, 15.5f, date);
+		}
+		else{
+			return null;
+		}
+		return res;
 	}
 }
