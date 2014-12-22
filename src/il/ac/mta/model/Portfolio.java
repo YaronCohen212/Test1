@@ -29,13 +29,13 @@ public class Portfolio {
 		this.title = "";
 		this.stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		this.stocksStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
-		this.balance=0;
+		this.balance = 0;
 		this.portfolioSize = 0;
 	}
 	
 	//Copy c'tor
 	public Portfolio(Portfolio p){
-		this.title=p.title;
+		this.title = p.title;
 		this.stocks = new Stock[MAX_PORTFOLIO_SIZE];
 		this.stocksStatus = new StockStatus[MAX_PORTFOLIO_SIZE];
 		for(int i=0;i<MAX_PORTFOLIO_SIZE;i++){
@@ -87,9 +87,9 @@ public class Portfolio {
 	 * <b>Stock symbol:</b> AAPLE, <b>ask:</b> 54.2, <b>bid:</b> 6.4, <b>date:</b> Sun Dec 2 14:22:56 IST 2013 <b>quantity: </b>88<br>.....
 	 */
 	public String getHtmlString(){
-		String res="<h1>" + this.title + "</h1>"+"<b>Total Portfolio Value: </b>" + getTotalValue() + "$, "
+		String res = "<h1>" + this.title + "</h1>"+"<b>Total Portfolio Value: </b>" + getTotalValue() + "$, "
 				+ "<b>Total Stocks Value: </b>" + getStocksValue() + "$, " + "<b>Balance: </b>" + getBalance() + "$<br>";
-		for(int i=0;i<this.portfolioSize;i++){
+		for(int i=0 ; i<this.portfolioSize ; i++){
 			res+=this.stocks[i].getHtmlDescription() + " <b>quantity: </b>" + this.stocksStatus[i].stockQuantity + "<br>";
 		}
 		return res;
@@ -127,9 +127,9 @@ public class Portfolio {
 			}
 			this.stocks[i] = null;
 			this.stocksStatus[i] = null;
-			this.portfolioSize--;
 			this.fixStocks();
 			this.fixStocksStatus();
+			this.portfolioSize--;
 			return true;
 		}
 		return false;
@@ -139,7 +139,7 @@ public class Portfolio {
 	 * remove the stock with the same symbol otherwise it do nothing.
 	 */
 	public Boolean removeStock (String symbol){
-		int i=isStockExist(symbol);
+		int i = isStockExist(symbol);
 		return this.removeStock(i);
 	}
 	
@@ -223,7 +223,7 @@ public class Portfolio {
 		Stock[] res=new Stock[MAX_PORTFOLIO_SIZE];
 		for (int i=0 ; i<this.portfolioSize ; i++){
 			if (this.stocks[i] != null){
-				res[j++]=stocks[i];				
+				res[j++] = stocks[i];				
 			}
 		}
 		this.stocks=res;
@@ -237,10 +237,10 @@ public class Portfolio {
 		StockStatus[] res=new StockStatus[MAX_PORTFOLIO_SIZE];
 		for (int i=0 ; i<this.portfolioSize ; i++){
 			if (this.stocksStatus[i] != null){
-				res[j++]=stocksStatus[i];				
+				res[j++] = stocksStatus[i];				
 			}
 		}
-		this.stocksStatus=res;
+		this.stocksStatus = res;
 	}
 	
 	/**
@@ -250,7 +250,7 @@ public class Portfolio {
 	 */
 	private int isStockExist(String symbol){
 		for (int i=0 ; i<this.portfolioSize ; i++){
-			if (this.stocks[i].equal(symbol)){
+			if (this.stocks[i].getStockSymbol().equals(symbol)){
 				return i;
 			}
 		}
@@ -263,7 +263,7 @@ public class Portfolio {
 	public float getStocksValue(){
 		float res = 0;
 		for (int i=0 ; i<portfolioSize ; i++){
-			res+=(stocksStatus[i].stockQuantity * stocksStatus[i].currentBid);
+			res += (stocksStatus[i].stockQuantity * stocksStatus[i].currentBid);
 		}
 		return res;
 	}
@@ -296,11 +296,11 @@ public class Portfolio {
 		}
 		
 		public StockStatus(String symbol, float currentAsk, float currentBid, Date date, ALGO_RECOMMENDATION recommendation, int stockQuantity){
-			this.symbol=symbol;
+			this.symbol = symbol;
 			this.currentAsk = currentAsk;
 			this.currentBid = currentBid;
 			this.date = new Date(date.getTime());
-			this.recommendation=recommendation;
+			this.recommendation = recommendation;
 			this.stockQuantity = stockQuantity;
 		}
 		
@@ -356,7 +356,7 @@ public class Portfolio {
 		}
 
 		public void setDate(Date date) {
-			this.date = date;
+			this.date = new Date(date.getTime());
 		}
 		
 		public ALGO_RECOMMENDATION getRecommendation() {

@@ -35,19 +35,22 @@ public class Stock {
 	
 
 	public void setStockSymbol(String inputSymbol ){
-		symbol=inputSymbol;
+		symbol = inputSymbol;
 	}
 	
 	public void setStockAsk(float inputAsk ){
-		ask=inputAsk;
+		ask = inputAsk;
 	}
 	
 	public void setStockBid(float inputBid ){
-		bid=inputBid;
+		bid = inputBid;
 	}
 	
+	/** set a new date for date member
+	 * @param date - the date that you want to change to.
+	 */
 	public void setDate(Date date) {
-		this.date = date;
+		this.date = new Date(date.getTime());
 	}
 	
 	public Date getDate() {
@@ -67,10 +70,10 @@ public class Stock {
 	}
 	
 	public void setStock(String inputSymbol, float inputAsk, float inputBid, Date d){
-		this.symbol=inputSymbol;
-		this.ask=inputAsk;
-		this.bid=inputBid;
-		this.date=d;
+		this.symbol = inputSymbol;
+		this.ask = inputAsk;
+		this.bid = inputBid;
+		this.date = new Date (d.getTime());
 	}
 	
 	public boolean equal (String symbol){
