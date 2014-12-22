@@ -122,6 +122,9 @@ public class Portfolio {
 	 */
 	private Boolean removeStock (int i){
 		if (i >= 0 && this.stocks[i] != null && i < this.portfolioSize){
+			if (stocksStatus[i].getStockQuantity() > 0){
+				sellStock(stocks[i].getStockSymbol() ,-1);
+			}
 			this.stocks[i] = null;
 			this.stocksStatus[i] = null;
 			this.portfolioSize--;
@@ -139,6 +142,7 @@ public class Portfolio {
 		int i=isStockExist(symbol);
 		return this.removeStock(i);
 	}
+	
 	/**
 	 * this method buy a stock.
 	 * @param symbol - unique key, the name of a stock
@@ -146,17 +150,15 @@ public class Portfolio {
 	 * @return action is success or fail
 	 */
 	public boolean buyStock(String symbol, int quantity){		
-		Stock tmpStockStatus = PortfolioService.serverLike(symbol);
+		Stock newStock = PortfolioService.serverLike(symbol);
 		StockStatus newStockStatus; 
-		Stock newStock;
 		int i = isStockExist(symbol);
 		
-		if (tmpStockStatus == null){ //symbol not found
+		if (newStock == null){ //symbol not found
 			return false;
 		}
 		
-		newStockStatus = new StockStatus(tmpStockStatus);
-		newStock = new Stock(symbol , newStockStatus.getCurrentAsk() , newStockStatus.getCurrentBid() , newStockStatus.getDate());
+		newStockStatus = new StockStatus(newStock);
 		if (quantity == -1){
 			quantity = (int)(balance / newStockStatus.getCurrentAsk());
 		}
@@ -177,9 +179,10 @@ public class Portfolio {
 			stocks[i].setStockBid(newStock.getStockBid());
 			stocksStatus[i].stockQuantity += quantity;
 		}
-		updateBalance(newStockStatus.stockQuantity * newStockStatus.getCurrentBid() * -1);
+		updateBalance(newStockStatus.stockQuantity * newStockStatus.getCurrentAsk() * -1);
 		return true;
 	}
+	
 	/**
 	 * this method sell a stock.<br>
 	 * if quantity is more then you have it will sell all

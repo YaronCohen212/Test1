@@ -31,7 +31,7 @@ public class PortfolioService {
 	/**
 	 * it simulate "real time" server for bring stocks information by symbol
 	 * @param symbol - key
-	 * @return stock status
+	 * @return stock
 	 */
 	public static Stock serverLike(String symbol){
 		Stock res = new Stock();

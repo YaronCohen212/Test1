@@ -79,6 +79,7 @@ public class Stock {
 		else
 			{return false;}
 	}
+	
 	/**
 	 * return an HTML code string of stock. 
 	 *  @example

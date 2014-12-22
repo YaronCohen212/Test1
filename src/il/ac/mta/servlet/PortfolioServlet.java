@@ -2,7 +2,6 @@ package il.ac.mta.servlet;
 
 import il.ac.mta.model.Portfolio;
 import il.ac.mta.service.PortfolioService;
-
 import java.io.IOException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
