@@ -67,7 +67,11 @@ public class Portfolio {
 		return balance;
 	}
 	
-	
+	/**
+	 * 
+	 * @param amount- the money to add
+	 * @return ture if action complete false if not.
+	 */
 	public boolean updateBalance(float amount){
 		if (this.balance + amount >= 0){
 			this.balance += amount;
@@ -118,7 +122,7 @@ public class Portfolio {
 	
 	/**
 	 * remove existing stock in stocks[]
-	 * @param i is the index of stocks[], between 0 to MAX_PORTFOLIO_SIZE-1;
+	 * @param i is the index of stocks[], between -1 to MAX_PORTFOLIO_SIZE-1;
 	 */
 	private Boolean removeStock (int i){
 		if (i >= 0 && this.stocks[i] != null && i < this.portfolioSize){
@@ -219,7 +223,7 @@ public class Portfolio {
 	 * fix the stocks array, put all cells that in use at the start of the array.
 	 */
 	private void fixStocks(){
-		int j=0;
+		int j = 0;
 		Stock[] res=new Stock[MAX_PORTFOLIO_SIZE];
 		for (int i=0 ; i<this.portfolioSize ; i++){
 			if (this.stocks[i] != null){
@@ -233,7 +237,7 @@ public class Portfolio {
 	 * fix the stocksStatus array, put all cells that in use at the start of the array.
 	 */
 	private void fixStocksStatus(){
-		int j=0;
+		int j = 0;
 		StockStatus[] res=new StockStatus[MAX_PORTFOLIO_SIZE];
 		for (int i=0 ; i<this.portfolioSize ; i++){
 			if (this.stocksStatus[i] != null){

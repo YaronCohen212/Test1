@@ -24,7 +24,6 @@ public class PortfolioService {
 		myPortfolio.buyStock("CAAS", 40);
 		myPortfolio.sellStock("AAL", -1);
 		myPortfolio.removeStock("CAAS");
-		
 		return myPortfolio;
 	}
 	
@@ -47,6 +46,12 @@ public class PortfolioService {
 		}
 		else if (symbol.equals("CAAS")){
 			res.setStock("CAAS", 20, 15.5f, date);
+		}
+		else if (symbol.equals("GOOG")){
+			res.setStock("GOOG", 42, 39.5f, date);
+		}
+		else if (symbol.equals("IBM")){
+			res.setStock("IBM", 67, 60.1f, date);
 		}
 		else{
 			return null;
