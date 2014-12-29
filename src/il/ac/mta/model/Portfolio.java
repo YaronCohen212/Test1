@@ -1,8 +1,6 @@
 package il.ac.mta.model;
 
 import il.ac.mta.service.PortfolioService;
-import il.ac.mta.model.StockStatus;
-import il.ac.mta.model.Stock;
 
 /**
  * This class describes stock portfolio.<br>

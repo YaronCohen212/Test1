@@ -4,7 +4,8 @@ import java.util.Date;
 import il.ac.mta.model.Portfolio.ALGO_RECOMMENDATION;
 
 /**
- * more information in future
+ * this class extends for stock it add add members:<br>
+ * current quantity, algo last recommendation.
  * @author Yaron_Cohen
  * @since JDK 7
  */
@@ -55,6 +56,12 @@ public class StockStatus extends Stock{
 	public void setStockQuantity(int stockQuantity) {
 		this.stockQuantity = stockQuantity;
 	}
+	
+	/**
+	 * return an HTML code string of stock Status. 
+	 *  @example
+	 * <b>Stock symbol:</b> PIH, <b>ask:</b> 12.4, <b>bid:</b> 13.1, <b>date:</b> Sat Nov 15 22:12:04 IST 2014 <b>quantity: </b>32 <br>
+	 */
 	public String getHtmlDescription(){
 		String res = super.getHtmlDescription();
 		res += " <b>quantity: </b>" + this.stockQuantity;
