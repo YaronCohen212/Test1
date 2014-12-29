@@ -2,7 +2,6 @@ package il.ac.mta.service;
 
 import java.util.Calendar;
 import java.util.Date;
-
 import il.ac.mta.model.Portfolio;
 import il.ac.mta.model.Stock;
 
@@ -16,7 +15,7 @@ public class PortfolioService {
 	public Portfolio getProtfolio(){
 		Portfolio myPortfolio = new Portfolio();
 		
-		myPortfolio.setTitle("Exercise 7 portfolio");
+		myPortfolio.setTitle("Exercise 8 portfolio");
 		myPortfolio.updateBalance(10000);
 		
 		myPortfolio.buyStock("PIH", 20);

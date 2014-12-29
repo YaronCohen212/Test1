@@ -17,7 +17,7 @@ public class Stock {
 	
 // C'tor
 	public Stock (){
-		this("",0,0,new Date());
+		this("",0,0,new Date(0));
 	}
 	
 	public Stock (String inputSymbol, float inputAsk, float inputBid, Date d){
