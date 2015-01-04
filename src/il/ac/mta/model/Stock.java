@@ -24,7 +24,7 @@ public class Stock {
 		this.symbol = inputSymbol;
 		this.ask = inputAsk;
 		this.bid = inputBid;
-		this.date = d;
+		this.date = new Date(d.getTime());
 	}
 
 // Copy C'tor	

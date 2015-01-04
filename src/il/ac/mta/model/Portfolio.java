@@ -1,7 +1,5 @@
 package il.ac.mta.model;
 
-import il.ac.mta.service.PortfolioService;
-
 /**
  * This class describes stock portfolio.<br>
  * title - the name of the stock portfolio.<br>
@@ -95,22 +93,46 @@ public class Portfolio {
 	}
 	
 	/**
-	 * add data to the end of stocksStatus[] if there is a place and he is not there yet if not do nothing.  
+	 * add stock to the end of stocksStatus[] if there is a place and he is not there yet if not do nothing.  
 	 */
-	private boolean addStock (StockStatus stockStatus){
-		int index = isStockExist(stockStatus.getStockSymbol());
+	public boolean addStock (StockStatus stockStatus){
+		int index = isStockExists(stockStatus.getStockSymbol());
 		if (index != -1){
 			System.out.println("can't add new stock, portfolio alredy have \"" + stockStatus.getStockSymbol() + "\" stocks");
 			return false;
 		}
 		else if (this.portfolioSize < MAX_PORTFOLIO_SIZE){
-			this.stocksStatus[this.portfolioSize++] = stockStatus;
+			this.stocksStatus[this.portfolioSize++] = new StockStatus(stockStatus);
 			return true;
 		}
 		else{
 			System.out.println("can't add new stock, portfolio can have only " + MAX_PORTFOLIO_SIZE + " stocks");
 			return false;
 		}
+	}
+	
+	/**
+	 * this method buy a stock.
+	 * @param symbol - unique key, the name of a stock
+	 * @param quantity - the amount of stock (-1 and above, -1= buy with all the balance)
+	 * @return action is success or fail
+	 */
+	public boolean buyStock(String symbol, int quantity){		
+		int i = isStockExists(symbol);
+		if (i == -1){
+			System.out.println("can't buy non-exists stock");
+			return false;	
+		}
+		if (quantity == -1){
+			quantity = (int)(balance / stocksStatus[i].getStockAsk());
+		}
+		if (quantity * stocksStatus[i].getStockAsk() >= balance){
+			System.out.println("can't buy more then your balance");
+			return false;	
+		}
+		stocksStatus[i].setStockQuantity(quantity + stocksStatus[i].getStockQuantity());
+		updateBalance(quantity * stocksStatus[i].getStockAsk() * -1);	
+		return true;
 	}
 	
 	/**
@@ -133,48 +155,9 @@ public class Portfolio {
 	/**
 	 * remove the stock with the same symbol otherwise it do nothing.
 	 */
-	public Boolean removeStock (String symbol){
-		int i = isStockExist(symbol);
+	public boolean removeStock (String symbol){
+		int i = isStockExists(symbol);
 		return this.removeStock(i);
-	}
-	
-	/**
-	 * this method buy a stock.
-	 * @param symbol - unique key, the name of a stock
-	 * @param quantity - the amount of stock (-1 and above, -1= buy with all the balance)
-	 * @return action is success or fail
-	 */
-	public boolean buyStock(String symbol, int quantity){		
-		Stock newStock = PortfolioService.serverLike(symbol);
-		StockStatus newStockStatus; 
-		int i = isStockExist(symbol);
-		
-		if (newStock == null){ //symbol not found
-			return false;
-		}
-		newStockStatus = new StockStatus(newStock);
-		
-		if (quantity == -1){
-			quantity = (int)(balance / newStockStatus.getStockAsk());
-		}
-		newStockStatus.setStockQuantity(quantity);
-		
-		if (newStockStatus.getStockQuantity() * newStockStatus.getStockAsk() >= balance){
-			System.out.println("can't buy more then your balance");
-			return false;	
-		}
-		
-		//--> quantity is good number and not -1
-		if (i == -1){
-			addStock(newStockStatus);
-		}
-		else{
-			stocksStatus[i].setStockAsk(newStockStatus.getStockAsk());
-			stocksStatus[i].setStockBid(newStockStatus.getStockBid());
-			stocksStatus[i].setStockQuantity(stocksStatus[i].getStockQuantity() + quantity);
-		}
-		updateBalance(newStockStatus.getStockQuantity() * newStockStatus.getStockAsk() * -1);
-		return true;
 	}
 	
 	/**
@@ -185,7 +168,7 @@ public class Portfolio {
 	 * @return action is success or fail
 	 */
 	public boolean sellStock(String symbol, int quantity){
-		int i=isStockExist(symbol);
+		int i=isStockExists(symbol);
 		if (i < 0){
 			return false;
 		}
@@ -228,15 +211,15 @@ public class Portfolio {
 	 * @param symbol - the key id of stock
 	 * @return the index number or -1 
 	 */
-	private int isStockExist(String symbol){
+	public int isStockExists(String symbol){
 		for (int i=0 ; i<this.portfolioSize ; i++){
-			if (this.stocksStatus[i].getStockSymbol().equals(symbol)){
+			if (this.stocksStatus[i].getStockSymbol().equalsIgnoreCase(symbol)){
 				return i;
 			}
 		}
 		return -1;
 	}
-	
+
 	/**
 	 * @return the value of all the stocks together
 	 */

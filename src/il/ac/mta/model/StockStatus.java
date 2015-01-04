@@ -1,6 +1,7 @@
 package il.ac.mta.model;
 
 import java.util.Date;
+
 import il.ac.mta.model.Portfolio.ALGO_RECOMMENDATION;
 
 /**
@@ -21,14 +22,8 @@ public class StockStatus extends Stock{
 		stockQuantity = 0;
 	}
 	
-	public StockStatus(String symbol, float ask, float bid, Date date, ALGO_RECOMMENDATION recommendation, int stockQuantity){
+	public StockStatus(String symbol, float ask, float bid, Date date){
 		super(symbol, ask, bid, date);
-		this.recommendation = recommendation;
-		this.stockQuantity = stockQuantity;
-	}
-	
-	public StockStatus (Stock stock){
-		super(stock);
 		this.recommendation = ALGO_RECOMMENDATION.DO_NOTHING;
 		stockQuantity = 0;
 	}
@@ -40,6 +35,7 @@ public class StockStatus extends Stock{
 		this.stockQuantity = stockStatus.stockQuantity;
 	}
 	
+
 	//getters & setters
 	public ALGO_RECOMMENDATION getRecommendation() {
 		return recommendation;
