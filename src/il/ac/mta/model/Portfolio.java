@@ -1,5 +1,11 @@
 package il.ac.mta.model;
 
+import il.ac.mta.exception.BalanceException;
+import il.ac.mta.exception.IllegalQuantityException;
+import il.ac.mta.exception.PortfolioFullException;
+import il.ac.mta.exception.StockAlreadyExistsException;
+import il.ac.mta.exception.StockNotExistException;
+
 /**
  * This class describes stock portfolio.<br>
  * title - the name of the stock portfolio.<br>
@@ -63,16 +69,14 @@ public class Portfolio {
 	/**
 	 * 
 	 * @param amount- the money to add
-	 * @return ture if action complete false if not.
+	 * @return true if action complete false if not.
 	 */
-	public boolean updateBalance(float amount){
+	public void updateBalance(float amount) throws BalanceException{
 		if (this.balance + amount >= 0){
 			this.balance += amount;
-			return true;
 		}
 		else{
-			System.out.println("Not enough balance to complete purchase");
-			return false;
+			throw new BalanceException();
 		}
 	}
 	
@@ -94,20 +98,19 @@ public class Portfolio {
 	
 	/**
 	 * add stock to the end of stocksStatus[] if there is a place and he is not there yet if not do nothing.  
+	 * @throws StockAlreadyExistsException 
+	 * @throws PortfolioFullException 
 	 */
-	public boolean addStock (StockStatus stockStatus){
+	public void addStock (StockStatus stockStatus) throws StockAlreadyExistsException, PortfolioFullException{
 		int index = isStockExists(stockStatus.getStockSymbol());
 		if (index != -1){
-			System.out.println("can't add new stock, portfolio alredy have \"" + stockStatus.getStockSymbol() + "\" stocks");
-			return false;
+			throw new StockAlreadyExistsException(stockStatus.getStockSymbol());
 		}
 		else if (this.portfolioSize < MAX_PORTFOLIO_SIZE){
 			this.stocksStatus[this.portfolioSize++] = new StockStatus(stockStatus);
-			return true;
 		}
 		else{
-			System.out.println("can't add new stock, portfolio can have only " + MAX_PORTFOLIO_SIZE + " stocks");
-			return false;
+			throw new PortfolioFullException();
 		}
 	}
 	
@@ -115,49 +118,36 @@ public class Portfolio {
 	 * this method buy a stock.
 	 * @param symbol - unique key, the name of a stock
 	 * @param quantity - the amount of stock (-1 and above, -1= buy with all the balance)
-	 * @return action is success or fail
+	 * @throws BalanceException 
+	 * @throws StockNotExistException 
 	 */
-	public boolean buyStock(String symbol, int quantity){		
+	public void buyStock(String symbol, int quantity) throws BalanceException, StockNotExistException{		
 		int i = isStockExists(symbol);
 		if (i == -1){
-			System.out.println("can't buy non-exists stock");
-			return false;	
+			throw new StockNotExistException(symbol);
 		}
 		if (quantity == -1){
 			quantity = (int)(balance / stocksStatus[i].getStockAsk());
 		}
-		if (quantity * stocksStatus[i].getStockAsk() >= balance){
-			System.out.println("can't buy more then your balance");
-			return false;	
-		}
-		stocksStatus[i].setStockQuantity(quantity + stocksStatus[i].getStockQuantity());
 		updateBalance(quantity * stocksStatus[i].getStockAsk() * -1);	
-		return true;
+		stocksStatus[i].setStockQuantity(quantity + stocksStatus[i].getStockQuantity());
 	}
 	
 	/**
-	 * remove existing stock in stocks[]
-	 * @param i is the index of stocks[], between -1 to MAX_PORTFOLIO_SIZE-1;
+	 * remove the stock with the same symbol.
+	 * @throws StockNotExistException 
+	 * @throws BalanceException 
+	 * @throws IllegalQuantityException 
 	 */
-	private Boolean removeStock (int i){
-		if (i >= 0 && this.stocksStatus[i] != null && i < this.portfolioSize){
-			if (stocksStatus[i].getStockQuantity() > 0){
-				sellStock(stocksStatus[i].getStockSymbol() ,-1);
-			}
-			this.stocksStatus[i] = null;
-			this.fixStocksStatus();
-			this.portfolioSize--;
-			return true;
-		}
-		return false;
-	}
-	
-	/**
-	 * remove the stock with the same symbol otherwise it do nothing.
-	 */
-	public boolean removeStock (String symbol){
+	public void removeStock (String symbol) throws StockNotExistException, BalanceException, IllegalQuantityException{
 		int i = isStockExists(symbol);
-		return this.removeStock(i);
+		if (i == -1){
+			throw new StockNotExistException(symbol);
+		}
+		sellStock(stocksStatus[i].getStockSymbol() ,-1);
+		this.stocksStatus[i] = null;
+		this.fixStocksStatus();
+		this.portfolioSize--;
 	}
 	
 	/**
@@ -165,16 +155,17 @@ public class Portfolio {
 	 * if quantity is more then you have it will sell all
 	 * @param symbol - unique key, the name of a stock
 	 * @param quantity - the amount of stock
-	 * @return action is success or fail
+	 * @throws BalanceException 
+	 * @throws StockNotExistException 
+	 * @throws IllegalQuantityException 
 	 */
-	public boolean sellStock(String symbol, int quantity){
+	public void sellStock(String symbol, int quantity) throws BalanceException, StockNotExistException, IllegalQuantityException{
 		int i=isStockExists(symbol);
 		if (i < 0){
-			return false;
+			throw new StockNotExistException(symbol);
 		}
 		else if (quantity > stocksStatus[i].getStockQuantity()){ //if quantity is more then what you have
-			System.out.println("Not enough stocks to sell");
-			return false;
+			this.sellStock(symbol,-1);
 		}
 		else if(quantity == -1){ //sell the whole quantity
 			updateBalance(stocksStatus[i].getStockQuantity() * stocksStatus[i].getStockBid());
@@ -185,11 +176,9 @@ public class Portfolio {
 			stocksStatus[i].setStockQuantity(stocksStatus[i].getStockQuantity() - quantity);	
 		}
 		else{
-			//stock exists and quantity less then -1 (Task7.6.4.b)
-			System.out.println("quantity can't be " + quantity + " (-1 or more)");
-			return false;
+			//stock exists and quantity less then -1 (Task7 6.4.b)
+			throw new IllegalQuantityException();
 		}
-		return true;
 	}
 	
 	/**
@@ -211,7 +200,7 @@ public class Portfolio {
 	 * @param symbol - the key id of stock
 	 * @return the index number or -1 
 	 */
-	public int isStockExists(String symbol){
+	private int isStockExists(String symbol){
 		for (int i=0 ; i<this.portfolioSize ; i++){
 			if (this.stocksStatus[i].getStockSymbol().equalsIgnoreCase(symbol)){
 				return i;
