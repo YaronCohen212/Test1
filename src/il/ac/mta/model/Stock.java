@@ -34,15 +34,15 @@ public class Stock {
 	}
 	
 
-	public void setStockSymbol(String inputSymbol ){
+	public void setSymbol(String inputSymbol ){
 		symbol = inputSymbol;
 	}
 	
-	public void setStockAsk(float inputAsk ){
+	public void setAsk(float inputAsk ){
 		ask = inputAsk;
 	}
 	
-	public void setStockBid(float inputBid ){
+	public void setBid(float inputBid ){
 		bid = inputBid;
 	}
 	
@@ -57,15 +57,15 @@ public class Stock {
 		return date;
 	}
 	
-	public String getStockSymbol(){
+	public String getSymbol(){
 		return symbol;
 	}
 	
-	public float getStockAsk(){
+	public float getAsk(){
 		return ask;
 	}
 	
-	public float getStockBid(){
+	public float getBid(){
 		return bid;
 	}
 	

@@ -1,5 +1,7 @@
 package il.ac.mta.model;
 
+import java.util.List;
+
 import il.ac.mta.exception.BalanceException;
 import il.ac.mta.exception.IllegalQuantityException;
 import il.ac.mta.exception.PortfolioFullException;
@@ -34,6 +36,13 @@ public class Portfolio {
 		this.portfolioSize = 0;
 	}
 	
+	public Portfolio(List<StockStatus> stockStatuses) {
+		this();
+		for (int i=0; i<stockStatuses.size(); i++){
+			this.stocksStatus[i] = stockStatuses.get(i);
+		}
+	}
+	
 	//Copy c'tor
 	public Portfolio(Portfolio p){
 		this.title = p.title;
@@ -46,7 +55,7 @@ public class Portfolio {
 		this.balance = p.balance;
 		this.portfolioSize = p.portfolioSize;
 	}
-	
+
 	//Setters and getters
 	public String getTitle() {
 		return title;
@@ -56,6 +65,9 @@ public class Portfolio {
 		this.title = title;
 	}
 
+	public StockStatus[] getStocks(){
+		return this.stocksStatus;
+	}
 	
 	public int getPortfolioSize() {
 		return portfolioSize;
@@ -101,13 +113,13 @@ public class Portfolio {
 	 * @throws StockAlreadyExistsException 
 	 * @throws PortfolioFullException 
 	 */
-	public void addStock (StockStatus stockStatus) throws StockAlreadyExistsException, PortfolioFullException{
-		int index = isStockExists(stockStatus.getStockSymbol());
+	public void addStock (Stock stock) throws StockAlreadyExistsException, PortfolioFullException{
+		int index = isStockExists(stock.getSymbol());
 		if (index != -1){
-			throw new StockAlreadyExistsException(stockStatus.getStockSymbol());
+			throw new StockAlreadyExistsException(stock.getSymbol());
 		}
 		else if (this.portfolioSize < MAX_PORTFOLIO_SIZE){
-			this.stocksStatus[this.portfolioSize++] = new StockStatus(stockStatus);
+			this.stocksStatus[this.portfolioSize++] = new StockStatus(stock);
 		}
 		else{
 			throw new PortfolioFullException();
@@ -127,9 +139,9 @@ public class Portfolio {
 			throw new StockNotExistException(symbol);
 		}
 		if (quantity == -1){
-			quantity = (int)(balance / stocksStatus[i].getStockAsk());
+			quantity = (int)(balance / stocksStatus[i].getAsk());
 		}
-		updateBalance(quantity * stocksStatus[i].getStockAsk() * -1);	
+		updateBalance(quantity * stocksStatus[i].getAsk() * -1);	
 		stocksStatus[i].setStockQuantity(quantity + stocksStatus[i].getStockQuantity());
 	}
 	
@@ -144,7 +156,7 @@ public class Portfolio {
 		if (i == -1){
 			throw new StockNotExistException(symbol);
 		}
-		sellStock(stocksStatus[i].getStockSymbol() ,-1);
+		sellStock(stocksStatus[i].getSymbol() ,-1);
 		this.stocksStatus[i] = null;
 		this.fixStocksStatus();
 		this.portfolioSize--;
@@ -161,24 +173,34 @@ public class Portfolio {
 	 */
 	public void sellStock(String symbol, int quantity) throws BalanceException, StockNotExistException, IllegalQuantityException{
 		int i=isStockExists(symbol);
-		if (i < 0){
+		if (i < 0){ 	
 			throw new StockNotExistException(symbol);
 		}
 		else if (quantity > stocksStatus[i].getStockQuantity()){ //if quantity is more then what you have
 			this.sellStock(symbol,-1);
 		}
 		else if(quantity == -1){ //sell the whole quantity
-			updateBalance(stocksStatus[i].getStockQuantity() * stocksStatus[i].getStockBid());
+			updateBalance(stocksStatus[i].getStockQuantity() * stocksStatus[i].getBid());
 			stocksStatus[i].setStockQuantity(0);
 		}
 		else if (quantity >= 0) { //Partial sale
-			updateBalance(stocksStatus[i].getStockQuantity() * stocksStatus[i].getStockBid());
+			updateBalance(stocksStatus[i].getStockQuantity() * stocksStatus[i].getBid());
 			stocksStatus[i].setStockQuantity(stocksStatus[i].getStockQuantity() - quantity);	
 		}
 		else{
 			//stock exists and quantity less then -1 (Task7 6.4.b)
 			throw new IllegalQuantityException();
 		}
+	}
+	
+	public StockStatus findBySymbol(String symbol) {
+		for (int i=0; i<MAX_PORTFOLIO_SIZE ;i++){
+			if(this.stocksStatus[i] != null && 
+					symbol.equalsIgnoreCase(stocksStatus[i].getSymbol()) == true){
+				return stocksStatus[i];
+			}
+		}
+		return null;
 	}
 	
 	/**
@@ -202,7 +224,7 @@ public class Portfolio {
 	 */
 	private int isStockExists(String symbol){
 		for (int i=0 ; i<this.portfolioSize ; i++){
-			if (this.stocksStatus[i].getStockSymbol().equalsIgnoreCase(symbol)){
+			if (this.stocksStatus[i].getSymbol().equalsIgnoreCase(symbol)){
 				return i;
 			}
 		}

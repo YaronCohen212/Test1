@@ -28,6 +28,12 @@ public class StockStatus extends Stock{
 		stockQuantity = 0;
 	}
 	
+	public StockStatus(Stock stock){
+		super(stock);
+		this.recommendation = ALGO_RECOMMENDATION.DO_NOTHING;
+		stockQuantity = 0;
+	}
+	
 	//copy c'tor
 	public StockStatus (StockStatus stockStatus){
 		super((Stock)stockStatus);
