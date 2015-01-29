@@ -6,7 +6,6 @@ import il.ac.mta.exception.IllegalQuantityException;
 import il.ac.mta.exception.PortfolioFullException;
 import il.ac.mta.exception.StockAlreadyExistsException;
 import il.ac.mta.exception.StockNotExistException;
-import il.ac.mta.exception.StockNotExistsException;
 import il.ac.mta.exception.SymbolNotFoundInNasdaq;
 import il.ac.mta.model.Portfolio;
 import il.ac.mta.model.Stock;
@@ -143,7 +142,7 @@ public class PortfolioService {
 		flush();
 	}
 	
-	public void addStock(String symbol) throws StockAlreadyExistsException, PortfolioFullException, StockNotExistsException, SymbolNotFoundInNasdaq {
+	public void addStock(String symbol) throws StockAlreadyExistsException, PortfolioFullException, StockNotExistException, SymbolNotFoundInNasdaq {
 		Portfolio portfolio = getPortfolio();
 		
 		//get current symbol values from nasdaq.

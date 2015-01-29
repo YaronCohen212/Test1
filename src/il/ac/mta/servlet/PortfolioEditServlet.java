@@ -5,7 +5,7 @@ import il.ac.mta.exception.BalanceException;
 import il.ac.mta.exception.IllegalQuantityException;
 import il.ac.mta.exception.PortfolioFullException;
 import il.ac.mta.exception.StockAlreadyExistsException;
-import il.ac.mta.exception.StockNotExistsException;
+import il.ac.mta.exception.StockNotExistException;
 import il.ac.mta.exception.SymbolNotFoundInNasdaq;
 import il.ac.mta.model.Portfolio;
 import il.ac.mta.model.StockStatus;
@@ -95,7 +95,7 @@ public class PortfolioEditServlet extends AbstractAlgoServlet {
 				}
 			}
 			resp.sendRedirect("/portfolioedit.jsp");
-		}catch(StockNotExistsException e) {
+		}catch(StockNotExistException e) {
 			resp.sendRedirect("/portfolioedit.jsp?error=Stock not exist in portfolio");
 		}catch(StockAlreadyExistsException e) {
 			resp.sendRedirect("/portfolioedit.jsp?error=Stock already exists in portfolio");

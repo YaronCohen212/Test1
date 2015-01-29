@@ -77,7 +77,7 @@ public class Stock {
 	}
 	
 	public boolean equal (String symbol){
-		if (this.symbol.equals(symbol))
+		if (this.symbol.equalsIgnoreCase(symbol))
 			{return true;}
 		else
 			{return false;}
